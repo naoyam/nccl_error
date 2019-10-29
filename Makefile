@@ -12,10 +12,10 @@ nccl_test.o: nccl_test.cpp
 	nvcc -I$(NCCL_DIR)/include -ccbin mpicxx -g -std=c++11 -o $@ -c $< -Xcompiler -Wall
 
 run: nccl_test.exe
-	jsrun -r 1 -a 2 -c 10 -g 2 -b packed:5 -d packed ./nccl_test.exe
+	jsrun -n1 -r 1 -a 2 -c 10 -g 2 -b packed:5 -d packed ./nccl_test.exe
 
 cuda-memcheck: nccl_test.exe
-	jsrun -r 1 -a 2 -c 10 -g 2 -b packed:5 -d packed cuda-memcheck ./nccl_test.exe
+	jsrun -n1 -r 1 -a 2 -c 10 -g 2 -b packed:5 -d packed cuda-memcheck ./nccl_test.exe
 
 clean:
 	rm -f *.o *.exe *.d
